@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#main {
+  font-size: 2rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: whitesmoke;
+  min-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1D70A2;
+}
+
+#clock {
+  background-color: inherit;
+  width: 600px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 2fr 2fr;
+}
+
+#header {
+  font-size: 3rem;
+  grid-column: 1 / span 2;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+  margin-bottom: 40px;
+}
+
+button {
+  border: none;
+  color: inherit;
+  background-color: inherit;
+  outline: none;
+}
+
+button:hover {
+  opacity: 0.5;
+  cursor: pointer
+}
+
+/*  TIMER  */
+
+#timer {
+  width: 100%;
+  height: 100%;
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid white;
+}
+
+#timer-label {
+  font-size: 3rem;
+  margin-bottom: 5px;
+}
+
+#time-left {
+  font-size: 5rem;
+}
+
+#timer-buttons-wrap {
+  width: 50%;
+  flex-basis: 60px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#star_stop, #reset {
+  flex-basis: 46%;
+  height: 100%;
+}
+
+#play {
+  font-size: 2rem;
+  padding: 0 0 0 3px;
+  margin-left: 3px;
+}
+
+#pause {
+  font-size: 2.3rem;
+  position: relative;
+  top: 3px;
+}
+
+#reset {
+  font-size: 2.5rem;
+}
+
+/*  BREAK & SESSION */
+
+#break, #session {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#break {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+  border-bottom: 1px solid white;
+}
+
+#session {
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+}
+
+.settings {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 60%;
+}
+
+.settings > button {
+  width: 30%;
+  height: 40px;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  background-color: inherit;
+  color: white;
+}
+
+#break-length, #session-length {
+  font-size: 2rem;
+}
