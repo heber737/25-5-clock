@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
-import soundfile from "./assets/alarm.mp3";
+import Timer from "./Components/Timer";
+import Break from "./Components/Break";
+import Session from "./Components/Session";
 import "./App.css";
 
-export default function Clock() {
+export default function App() {
   const [sessLength, setSessLength] = useState(25);
   const [brLength, setBrLength] = useState(5);
   const [timer, setTimer] = useState({
@@ -177,89 +179,5 @@ export default function Clock() {
         </div>
       </div>
     </div>
-  );
-}
-
-function Timer({
-  timer,
-  handlePlay,
-  handleStop,
-  handleReset,
-  timerOn,
-  currentCycle,
-  alarm,
-}) {
-  let timerDisplay = `${
-    timer.minutes > 9 ? timer.minutes : "0" + timer.minutes
-  }:${timer.seconds > 9 ? timer.seconds : "0" + timer.seconds}`;
-  return (
-    <>
-      <div id="timer-label">{currentCycle}</div>
-      <div id="time-left">{timerDisplay}</div>
-      <div id="timer-buttons-wrap">
-        <button
-          id="start_stop"
-          onClick={timerOn === false ? handlePlay : handleStop}
-        >
-          <span id="play">&#9654;</span>
-          <span id="pause">&#9208;</span>
-        </button>
-        <button id="reset" onClick={handleReset}>
-          <span>&#8634;</span>
-        </button>
-      </div>
-      <audio ref={alarm} src={soundfile} type="audio/mp3"></audio>
-    </>
-  );
-}
-
-function Break({ brLength, handleBrDecrease, handleBrIncrease, timerOn }) {
-  return (
-    <>
-      <div id="break-label">Break Length</div>
-      <div className="settings">
-        <button
-          id="break-decrement"
-          onClick={!timerOn ? handleBrDecrease : null}
-        >
-          -
-        </button>
-        <div id="break-length">{brLength}</div>
-        <button
-          id="break-increment"
-          onClick={!timerOn ? handleBrIncrease : null}
-        >
-          +
-        </button>
-      </div>
-    </>
-  );
-}
-
-function Session({
-  sessLength,
-  handleSessDecrease,
-  handleSessIncrease,
-  timerOn,
-}) {
-  return (
-    <>
-      <div id="session-label">Session Length</div>
-      <div className="settings">
-        <button
-          id="session-decrement"
-          onClick={!timerOn ? handleSessDecrease : null}
-        >
-          -
-        </button>
-        <div id="session-length">{sessLength}</div>
-        <button
-          id="session-increment"
-          onClick={!timerOn ? handleSessIncrease : null}
-        >
-          +
-        </button>
-      </div>
-    </>
   );
 }
