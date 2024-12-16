@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
-import "./App.css";
 import soundfile from "./assets/alarm.mp3";
+import "./App.css";
 
 export default function Clock() {
   const [sessLength, setSessLength] = useState(25);
@@ -16,45 +16,6 @@ export default function Clock() {
   const defaultSessLength = useRef(sessLength);
   const defaultBrLength = useRef(brLength);
   const alarm = useRef(null);
-
-  function countDown() {
-    if (timer.minutes > 0) {
-      if (timer.seconds !== 0) {
-        setTimer({
-          minutes: timer.minutes,
-          seconds: timer.seconds - 1,
-        });
-      } else if (timer.seconds === 0) {
-        setTimer({
-          minutes: timer.minutes - 1,
-          seconds: 59,
-        });
-      }
-    }
-    if (timer.minutes === 0) {
-      if (timer.seconds !== 0) {
-        setTimer({
-          minutes: timer.minutes,
-          seconds: timer.seconds - 1,
-        });
-      } else if (timer.seconds === 0) {
-        alarm.current.play();
-        if (currentCycle === "Session") {
-          setCurrentCycle("Break");
-          setTimer({
-            minutes: brLength,
-            seconds: 0,
-          });
-        } else {
-          setCurrentCycle("Session");
-          setTimer({
-            minutes: sessLength,
-            seconds: 0,
-          });
-        }
-      }
-    }
-  }
 
   function handlePlay() {
     setTimerOn(true);
@@ -84,8 +45,8 @@ export default function Clock() {
 
   function handleBrIncrease() {
     if (brLength < 60) {
-      let newLength = brLength + 1;
-      let cycle = "Break";
+      const newLength = brLength + 1;
+      const cycle = "Break";
       setBrLength(newLength);
       timerUpdate(newLength, cycle);
     } else {
@@ -95,8 +56,8 @@ export default function Clock() {
 
   function handleBrDecrease() {
     if (brLength > 1) {
-      let newLength = brLength - 1;
-      let cycle = "Break";
+      const newLength = brLength - 1;
+      const cycle = "Break";
       setBrLength(newLength);
       timerUpdate(newLength, cycle);
     } else {
@@ -106,8 +67,8 @@ export default function Clock() {
 
   function handleSessIncrease() {
     if (sessLength < 60) {
-      let newLength = sessLength + 1;
-      let cycle = "Session";
+      const newLength = sessLength + 1;
+      const cycle = "Session";
       setSessLength(newLength);
       timerUpdate(newLength, cycle);
     } else {
@@ -117,8 +78,8 @@ export default function Clock() {
 
   function handleSessDecrease() {
     if (sessLength > 1) {
-      let newLength = sessLength - 1;
-      let cycle = "Session";
+      const newLength = sessLength - 1;
+      const cycle = "Session";
       setSessLength(newLength);
       timerUpdate(newLength, cycle);
     } else {
@@ -127,15 +88,59 @@ export default function Clock() {
   }
 
   useEffect(() => {
-    alarm.current = document.getElementById("beep");
     let intervalId;
+    function countDown() {
+      if (timer.minutes > 0) {
+        if (timer.seconds !== 0) {
+          setTimer({
+            minutes: timer.minutes,
+            seconds: timer.seconds - 1,
+          });
+        } else if (timer.seconds === 0) {
+          setTimer({
+            minutes: timer.minutes - 1,
+            seconds: 59,
+          });
+        }
+      } else if (timer.minutes === 0) {
+        if (timer.seconds !== 0) {
+          setTimer({
+            minutes: timer.minutes,
+            seconds: timer.seconds - 1,
+          });
+        } else if (timer.seconds === 0) {
+          alarm.current.play();
+          if (currentCycle === "Session") {
+            setCurrentCycle("Break");
+            setTimer({
+              minutes: brLength,
+              seconds: 0,
+            });
+          } else {
+            setCurrentCycle("Session");
+            setTimer({
+              minutes: sessLength,
+              seconds: 0,
+            });
+          }
+        }
+      }
+    }
+    console.log("holi");
     if (timerOn === true) {
-      intervalId = setInterval(countDown, 1000);
+      intervalId = setTimeout(countDown, 1000);
     }
     return () => {
-      clearInterval(intervalId);
+      clearTimeout(intervalId);
     };
-  });
+  }, [
+    timerOn,
+    brLength,
+    currentCycle,
+    sessLength,
+    timer.minutes,
+    timer.seconds,
+  ]);
 
   return (
     <div id="main">
@@ -149,6 +154,7 @@ export default function Clock() {
             handleReset={handleReset}
             timerOn={timerOn}
             currentCycle={currentCycle}
+            alarm={alarm}
           />
         </div>
         <div id="break">
@@ -181,6 +187,7 @@ function Timer({
   handleReset,
   timerOn,
   currentCycle,
+  alarm,
 }) {
   let timerDisplay = `${
     timer.minutes > 9 ? timer.minutes : "0" + timer.minutes
@@ -201,7 +208,7 @@ function Timer({
           <span>&#8634;</span>
         </button>
       </div>
-      <audio id="beep" src={soundfile} type="audio/mp3"></audio>
+      <audio ref={alarm} src={soundfile} type="audio/mp3"></audio>
     </>
   );
 }

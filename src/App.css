@@ -6,14 +6,14 @@
 
 #main {
   font-size: 2rem;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: whitesmoke;
   min-width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1D70A2;
+  background-color: #1d70a2;
 }
 
 #clock {
@@ -43,7 +43,7 @@ button {
 
 button:hover {
   opacity: 0.5;
-  cursor: pointer
+  cursor: pointer;
 }
 
 /*  TIMER  */
@@ -76,7 +76,8 @@ button:hover {
   justify-content: flex-end;
 }
 
-#star_stop, #reset {
+#star_stop,
+#reset {
   flex-basis: 46%;
   height: 100%;
 }
@@ -99,7 +100,8 @@ button:hover {
 
 /*  BREAK & SESSION */
 
-#break, #session {
+#break,
+#session {
   width: 100%;
   height: 100%;
   display: flex;
@@ -115,8 +117,8 @@ button:hover {
 }
 
 #session {
-    grid-column: 2 / span 1;
-    grid-row: 3 / span 1;
+  grid-column: 2 / span 1;
+  grid-row: 3 / span 1;
 }
 
 .settings {
@@ -135,6 +137,7 @@ button:hover {
   color: white;
 }
 
-#break-length, #session-length {
+#break-length,
+#session-length {
   font-size: 2rem;
 }
